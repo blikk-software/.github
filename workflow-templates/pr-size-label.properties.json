@@ -1,0 +1,4 @@
+{
+  "name": "PR Size",
+  "description": "Adds a label to the PR which indicates the size of PR, X-Small to X-Large, based on the number of lines changed."
+}

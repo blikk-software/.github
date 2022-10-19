@@ -1,0 +1,42 @@
+name: Bump version and tag
+
+# This action runs as pull requests are merged (closed) to the main branch
+on:
+  pull_request:
+    types: [closed]
+    branches: [ $default-branch ]
+
+jobs:
+  bump_version_tag:
+    if: ${{ github.event.pull_request.merged == true }}
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+        with:
+          token: ${{ secrets.PAT_TOKEN }} # By using a PAT Token (rather than the GITHUB_TOKEN) we can trigger other workflows (Publishing NPM packages or Building Docker images)
+
+      # PRs can have release labels and these indicate whether a major, minor, release or prelease bump to the version is performed
+      # See step 'bump-semver' for bumping.
+      # Docs - https://github.com/actions-ecosystem/action-release-label
+      - uses: actions-ecosystem/action-release-label@v1
+        id: release-label
+
+      - uses: actions-ecosystem/action-get-latest-tag@v1
+        id: get-latest-tag
+        with:
+          initial_version: v0.1.0
+
+      # Bump semver according to output from step 'release-label' if event is a PR with correct labels,
+      # else bump by prerelease step
+      # Docs - https://github.com/actions-ecosystem/action-bump-semver
+      - uses: actions-ecosystem/action-bump-semver@v1
+        id: bump-semver
+        with:
+          current_version: ${{ steps.get-latest-tag.outputs.tag }}
+          level: ${{ steps.release-label.outputs.level || 'prerelease' }}
+
+      # Push tag on pull request merged
+      - uses: actions-ecosystem/action-push-tag@v1
+        with:
+          tag: ${{ steps.bump-semver.outputs.new_version }}
+          message: "${{ steps.bump-semver.outputs.new_version }}: PR #${{ github.event.pull_request.number }} ${{ github.event.pull_request.title }}"

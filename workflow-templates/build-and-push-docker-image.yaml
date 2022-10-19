@@ -1,0 +1,41 @@
+name: Build and push Docker image to Github Packages
+on:
+  workflow_dispatch: # Allows for manual running of action
+  push:
+    tags:
+      - "**" # Matches all tags, also hierarchical tags e.g. v1.0.1/beta
+
+env:
+  REGISTRY: ghcr.io
+
+jobs:
+  build_docker:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+
+      - uses: docker/metadata-action@v3
+        id: metadata
+        with:
+          github-token: ${{ github.token }}
+          images: ${{ env.REGISTRY }}/${{ github.repository }}
+          flavor: |
+            latest=true
+          tags: |
+            type=semver,pattern={{raw}},priority=100
+            type=raw,value={{date 'YYYY.MM'}}.${{ github.run_number }},priority=200
+            type=sha,prefix=,priority=300
+
+      - name: Log into registry
+        uses: docker/login-action@28218f9b04b4f3f62068d7b6ce6ca5b26e35336c
+        with:
+          registry: ${{ env.REGISTRY }}
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
+
+      - uses: docker/build-push-action@v3
+        id: build
+        with:
+          context: .
+          push: true
+          tags: ${{ steps.metadata.outputs.tags }}

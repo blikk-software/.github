@@ -1,0 +1,11 @@
+{
+  "name": "Build and push Docker image",
+  "description": "Build and push Docker image to GitHub Container Registry.",
+  "iconName": "example-icon",
+  "categories": [
+    "Go"
+  ],
+  "filePatterns": [
+    "^Dockerfile"
+  ]
+}
