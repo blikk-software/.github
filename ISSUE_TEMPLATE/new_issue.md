@@ -1,6 +1,6 @@
 ---
 name: New issue
-description: Use this template for new issues.
+about: Use this template for new issues.
 title: "[ISSUE NAME]"
 ---
 <!--- Provide a general summary of the issue in the Title above -->
