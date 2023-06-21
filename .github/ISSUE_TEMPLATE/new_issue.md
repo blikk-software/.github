@@ -2,6 +2,7 @@
 name: New issue
 about: Use this template for new issues.
 title: "[ISSUE NAME]"
+labels: needs triage
 ---
 <!--- Provide a general summary of the issue in the Title above -->
 
