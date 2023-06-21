@@ -5,8 +5,8 @@ labels: ["triage"]
 body:
   - type: textarea
     id: description
-    label: Issue Description
     attributes:
+      label: Issue Description
       value: |
         ## Detailed Description
         <!--- Provide a detailed description of the change or addition you are proposing -->
