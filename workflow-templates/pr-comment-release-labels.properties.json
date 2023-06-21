@@ -1,4 +1,0 @@
-{
-  "name": "Comment release labels on PRs",
-  "description": "Comments on PR a reminder to add a release label in order to bump version after merge."
-}

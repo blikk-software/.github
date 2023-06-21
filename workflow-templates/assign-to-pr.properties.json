@@ -1,4 +1,0 @@
-{
-  "name": "Assign creator to PR",
-  "description": "When a developer creates a PR, they will automatically get assigned to the PR as owners."
-}

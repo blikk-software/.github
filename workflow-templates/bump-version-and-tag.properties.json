@@ -1,4 +1,0 @@
-{
-  "name": "Bump version and tag",
-  "description": "When PRs are merged to default branch, a new tag is created that increments the latest tag according to which release type (major, minor, patch, prerelease) the PR is. The new tag is then pushed."
-}

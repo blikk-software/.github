@@ -1,4 +1,0 @@
-{
-  "name": "Check version release",
-  "description": "This workflow comments on the PR which version is expected to be released after merge, depending on the release label on the PR."
-}
