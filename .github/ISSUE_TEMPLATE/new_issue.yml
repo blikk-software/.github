@@ -5,6 +5,7 @@ labels: ["triage"]
 body:
   - type: textarea
     id: description
+    label: Issue Description
     attributes:
       value: |
         ## Detailed Description
