@@ -3,7 +3,8 @@ description: Use this template for new issues
 title: "[ISSUE NAME]"
 labels: ["triage"]
 body:
-  - type: markdown
+  - type: textarea
+    id: description
     attributes:
       value: |
         ## Detailed Description
